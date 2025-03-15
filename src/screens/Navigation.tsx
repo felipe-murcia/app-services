@@ -35,7 +35,7 @@ export const Navigation = () => {
                 {
                     menu == 1 ? <Main handleAdd={()=>setMenu(2)} setDate={setDate} date={{ month, year}}/> 
                     : menu == 2 ? <Add handleBack={()=>setMenu(1)} date={{ month, year}}/>
-                    : menu == 3 ? <Report  date={{ month, year}}/>
+                    : menu == 3 ? <Report  date={{ month, year}} setDate={setDate} />
                     : <Text>Not avalaible</Text>
                 }
             </View>

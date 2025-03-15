@@ -34,49 +34,18 @@ export const  Main = ({ handleAdd = () => {}, setDate, date }:Props) => {
     const [ isLoading, setLoading ] = useState(false);
     //const data:any = []
 
-    const { data, loadData } = useSQLite({ month: date?.month, year: date?.year });
-
-    //const { month, year, finances }   = useSelector((state:RootState) => state.financeData);
- 
-    //const dispatch = useDispatch(); 
-
-    // const financeService = new FinanceService();
-
-    useEffect(()=>{
-      //setupDatabase();
-      //getServices();
-    },[])
-
-    // const getMonth = ():string => {
-    //   const filterMonth:any = monthsArray.filter((item)=>item.value==month);
-    //   let stringMonth = filterMonth[0]?.label || "Error";
-    //   return stringMonth.substring(0, 3);
-    // }
-
-    // const getFinance = async (date:IDate) => {
-    //     try {
-    //         setLoading(true);
-    //         let listFinance:any = await financeService.get(`?where=%7B%20%22month%22%3A%20${date.month}%2C%20%22year%22%3A%20${date.year}%7D`);
-    //         if(listFinance.results)  dispatch({ type: 'SET_SERVICES', payload: listFinance.results }); 
-    //         //console.log('response',listFinance)
-    //     } catch (error) {
-    //         console.log('GET FINANCE',error)
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+    const { data, loadData, deleteService } = useSQLite({ month: date?.month, year: date?.year });
 
     const onSetCalendar = (date:IDate) =>{
       setDate && setDate({ month: date.month, year: date.year });
     }
 
     const removeData = async (value:number) => {        
-        // try {
-        //     let res:any = await financeService.delete(objectId); 
-        //     getFinance({ month, year})
-        // } catch (error) {
-        //     console.log('DELETE FINANCE',error)
-        // }
+        try {
+            let res:any = await deleteService(value);
+        } catch (error) {
+            console.log('DELETE SERVICE',error)
+        }
     }
 
   return (

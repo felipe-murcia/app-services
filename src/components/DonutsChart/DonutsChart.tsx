@@ -18,6 +18,7 @@ interface DonutChartProps {
   total?: number;
   title?: string;
   icon?: any;
+  colorIcon?: any;
 }
 
 const DonutChart: React.FC<DonutChartProps> = ({
@@ -26,12 +27,21 @@ const DonutChart: React.FC<DonutChartProps> = ({
   strokeWidth = 20,
   total = 100,
   title = 'Total',
-  icon = null
+  icon = null,
+  colorIcon = 'black'
 }) => {
   const circleCircumference = 2 * Math.PI * radius;
 
   let cumulativePercentage = 0;
   //radius = 180
+
+  if(data.length == 0) {
+    return(
+      <Text style={{ fontFamily:'FontMedium',  fontSize:22, position:'absolute', top: icon? radius+20 :radius,  textAlign:'center' }}>
+         No hay datos
+      </Text>
+    )
+  }
 
   return (
     <View style={styles.container}>
@@ -71,7 +81,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
         })}
       </Svg>
       {
-        icon && <Image source={icon} resizeMode="contain" style={{width:40, height:40, position:'absolute', top: radius-20, }}/>
+        icon && <Image source={icon} resizeMode="contain" style={{width:40, height:40, position:'absolute', top: radius-20, tintColor:colorIcon }}/>
       }
       <Text style={{ fontFamily:'FontMedium',  fontSize:22, position:'absolute', top: icon? radius+20 :radius,  textAlign:'center' }}>
          <Text style={{fontSize:20}}>

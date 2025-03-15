@@ -28,6 +28,17 @@ export const useSQLite = ({ month = 0 , year = 0 }:IDate) => {
         }
     };
 
+    const deleteService = async (id: number) => {
+        try {          
+            console.log('init delete ', data);
+            const result = await database.runAsync(`DELETE FROM services WHERE id = ?; `, [id]);
+            console.log('result', result?.changes!);
+            loadData({ month, year})
+        } catch (error) {
+            console.log('Error delete data', error);
+        }
+    };
+
     const createData = async (data:IService) => {
         try {
 
@@ -50,5 +61,5 @@ export const useSQLite = ({ month = 0 , year = 0 }:IDate) => {
         }
     };
 
-    return { data, loadData, createData };
+    return { data, loadData, createData, deleteService };
 }

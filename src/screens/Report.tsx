@@ -30,6 +30,7 @@ import { useSQLite } from "../hooks/useSQLite";
 import { IService } from "../interface/IService";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { ButtonCalendar } from "../components/IconButton/ButtonCalendar/ButtonCalendar";
+import PickerMonth from "../components/PickerMonth/PickerMonth";
 
 
 const width = Dimensions.get("screen").width;
@@ -37,9 +38,10 @@ const width = Dimensions.get("screen").width;
 
 interface Props{
   date: IDate;
+  setDate?: (date:IDate) => void;
 }
 
-export const Report = ({date}:Props) => {
+export const Report = ({ date, setDate }:Props) => {
 
   const { data } = useSQLite({ month: date?.month, year: date?.year }); 
 
@@ -86,6 +88,9 @@ export const Report = ({date}:Props) => {
     setDataCharts(newData);
   };
 
+  const onSetCalendar = (date:IDate) =>{
+    setDate && setDate({ month: date.month, year: date.year });
+  }
 
   return (
     <View style={styles.container}>
@@ -104,9 +109,11 @@ export const Report = ({date}:Props) => {
           onPress={() => setIsShowCalendar(!isShowCalendar)} />
       </View>
 
+      <PickerMonth visible={isShowCalendar} onClose={()=>setIsShowCalendar(false)} onConfirm={(date: IDate)=>onSetCalendar(date)} />
+
       <View style={{backgroundColor:'transparent', alignItems:'center'}}>
 
-        <DonutsChart data={dataCharts} radius={120} strokeWidth={25} total={itemSelected?.amount? itemSelected?.amount : totalService} title={itemSelected?.label} icon={itemSelected?.icon}/>
+        <DonutsChart data={dataCharts} radius={120} strokeWidth={25} total={itemSelected?.amount? itemSelected?.amount : totalService} title={itemSelected?.label} icon={itemSelected?.icon} colorIcon={itemSelected?.color}/>
 
         <View>
         {

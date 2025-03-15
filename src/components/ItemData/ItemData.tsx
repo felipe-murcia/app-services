@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   title:{
     fontFamily:'FontLight',
-    fontSize:20,
+    fontSize:18,
     color:colorGrayLight,
     lineHeight:19,
     backgroundColor: 'transparent'

@@ -29,21 +29,6 @@ import { WaveIndicator } from "react-native-indicators";
 
 const width2 = Dimensions.get("screen").width;
 
-const concepts = [
-  {
-    label: "Ingreso",
-    value: "INCOME",
-  },
-  {
-    label: "Egreso",
-    value: "EXPENSE",
-  },
-  {
-    label: "Ahorro",
-    value: "SAVING",
-  },
-];
-
 interface Props {
   visible: boolean;
   onSuccess: (data:any) => void; 
@@ -53,12 +38,9 @@ interface Props {
 const colorDisable = "#c0c0c0";
 
 export const Form = ({ onSuccess, date }:Props) => {
-  //const dispatch = useDispatch();
-
-  // const dataRedux = useSelector((state: RootState) => state.financeData);
 
   const [quantity, setQuantity] = useState<any>();
-  const [concept, setConncept] = useState("EXPENSE");
+  const [concept, setConncept] = useState("");
   const [month, setMonth] = useState(date?.month);
   const [year, setYear] = useState(date?.year);
   const [name, setName] = useState();
@@ -74,7 +56,7 @@ export const Form = ({ onSuccess, date }:Props) => {
   
       const data: any = {
         name,
-        concept,
+        service: concept,
         amount: parseInt(amount),
         month,
         year,
@@ -109,6 +91,24 @@ export const Form = ({ onSuccess, date }:Props) => {
         onClose={() => setIsShowCalendar(false)}
         onConfirm={(date: IDate) => onSetCalendar(date)}
       />
+
+      <Text style={styles.subtitles2}>Fecha</Text>
+
+      <TouchableOpacity onPress={() => setIsShowCalendar(!isShowCalendar)}>
+        <View
+          style={[styles.input, { flexDirection: "row", alignItems: "center" }]}
+        >
+          <Image
+            source={require("../../assets/images/actions/calendar.png")}
+            resizeMode="contain"
+            style={{ width: 20, height: 20, tintColor: colorBlack }}
+          />
+          <View style={{ width: 5 }} />
+          <Text style={styles.textDate}>
+            {getMonth()} {year}
+          </Text>
+        </View>
+      </TouchableOpacity>
  
 
       <Text style={styles.subtitles2}>Nombre</Text>
@@ -145,14 +145,14 @@ export const Form = ({ onSuccess, date }:Props) => {
                   <Image
                     source={item.icon}
                     resizeMode="contain"
-                    style={{ width: 30, height: 30, tintColor: isValue ? item.color : colorDisable }}
+                    style={{ width: 24, height: 24, tintColor: isValue ? item.color : colorDisable }}
                   />
                   <View style={{ height: 5 }} />
                   <Text
                     style={{
                       color: isValue ? item.color: colorDisable,
                       fontFamily: isValue ? "FontMedium" : "FontLight",
-                      fontSize: 20,
+                      fontSize: 16,
                     }}
                   >
                     {item.name}
@@ -169,25 +169,7 @@ export const Form = ({ onSuccess, date }:Props) => {
 
 
         
-      </View>
-
-      <Text style={styles.subtitles2}>Fecha</Text>
-
-      <TouchableOpacity onPress={() => setIsShowCalendar(!isShowCalendar)}>
-        <View
-          style={[styles.input, { flexDirection: "row", alignItems: "center" }]}
-        >
-          <Image
-            source={require("../../assets/images/actions/calendar.png")}
-            resizeMode="contain"
-            style={{ width: 20, height: 20, tintColor: colorBlack }}
-          />
-          <View style={{ width: 5 }} />
-          <Text style={styles.textDate}>
-            {getMonth()} {year}
-          </Text>
-        </View>
-      </TouchableOpacity>
+      </View>      
 
       <Text style={styles.subtitles2}>Valor cantidad</Text>
       <TextInput

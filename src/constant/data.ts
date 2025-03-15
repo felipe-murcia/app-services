@@ -76,13 +76,19 @@ export const servicesData = [
         id: "WAT",
         name: "Agua",
         icon: require('../assets/images/services/water.png'),
-        color: "#005bc5"
+        color: "#2980b9"
     },
     {
         id: "GAS",
         name: "Gas",
         icon: require('../assets/images/services/gas.png'),
         color: "#d31900"
+    },
+    {
+        id: "TEL",
+        name: "Teléfono",
+        icon: require('../assets/images/services/telefono.png'),
+        color: "#f39c12"
     },
     {
         id: "RED",
